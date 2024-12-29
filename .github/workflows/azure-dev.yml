@@ -29,13 +29,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
      
-     # - name: Setup .NET Core SDK
-     #   uses: actions/setup-dotnet@v4.2.0
-     #   with:
-     #     dotnet-version: '9.0.x'           
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.2.0
+        with:
+          dotnet-version: '9.0.x'           
      
-     # - name: Install azd
-     #   uses: Azure/setup-azd@v1.0.0
+      - name: Install azd
+        uses: Azure/setup-azd@v1.0.0
     
       - name: Install .NET Aspire workload
         run: dotnet workload install aspire
@@ -48,6 +48,17 @@ jobs:
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
 
+      - name: Log in with Azure (Client Credentials)
+        if: ${{ env.AZURE_CREDENTIALS != '' }}
+        run: |
+          $info = $Env:AZURE_CREDENTIALS | ConvertFrom-Json -AsHashtable;
+          Write-Host "::add-mask::$($info.clientSecret)"
+
+          azd auth login `
+            --client-id "$($info.clientId)" `
+            --client-secret "$($info.clientSecret)" `
+            --tenant-id "$($info.tenantId)"
+        shell: pwsh
       # - name: Add Ubuntu 22.04 Repositories 
       #   run: | 
       #     sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu jammy main universe" > /etc/apt/sources.list.d/jammy.list' 
