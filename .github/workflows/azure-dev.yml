@@ -36,7 +36,7 @@ jobs:
      
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
-    
+          
       - name: Install .NET Aspire workload
         run: dotnet workload install aspire
 
@@ -80,6 +80,9 @@ jobs:
       # - name: Build with dotnet 
       #   run: | 
       #     dotnet build --configuration Release
+      - name: Set environment variables 
+        run: | 
+          echo "MY_API_KEY=${{ secrets.MY_API_KEY }}" >> $GITHUB_ENV 
           
       - name: Provision Infrastructure
         run: azd provision --no-prompt
