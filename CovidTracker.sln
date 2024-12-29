@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.AppHost", "CovidTracker.AppHost\CovidTracker.AppHost.csproj", "{9A6FB28B-B561-46CC-A8CB-179CDE3B7B40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.ServiceDefaults", "CovidTracker.ServiceDefaults\CovidTracker.ServiceDefaults.csproj", "{71EBC88A-F4A7-4261-9E78-FAF8260B3BCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.ApiService", "CovidTracker.ApiService\CovidTracker.ApiService.csproj", "{A6B8EE55-34E7-4CAB-B76D-7B752A7E183C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.Web", "CovidTracker.Web\CovidTracker.Web.csproj", "{C3DD92FB-6671-4CC7-9528-70CF51DDF1F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.Domain", "CovidTracker.Domain\CovidTracker.Domain.csproj", "{846B5F4B-194A-4D5C-BCF2-7F68F3BA1994}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.Infrastructure", "CovidTracker.Infrastructure\CovidTracker.Infrastructure.csproj", "{207701D7-DE70-43DC-8240-E520C75D04DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidTracker.Application", "CovidTracker.Application\CovidTracker.Application.csproj", "{E42A7BAC-8E25-4A13-81B8-B3585B1370E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A6FB28B-B561-46CC-A8CB-179CDE3B7B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A6FB28B-B561-46CC-A8CB-179CDE3B7B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A6FB28B-B561-46CC-A8CB-179CDE3B7B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A6FB28B-B561-46CC-A8CB-179CDE3B7B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71EBC88A-F4A7-4261-9E78-FAF8260B3BCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EBC88A-F4A7-4261-9E78-FAF8260B3BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EBC88A-F4A7-4261-9E78-FAF8260B3BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EBC88A-F4A7-4261-9E78-FAF8260B3BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6B8EE55-34E7-4CAB-B76D-7B752A7E183C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6B8EE55-34E7-4CAB-B76D-7B752A7E183C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6B8EE55-34E7-4CAB-B76D-7B752A7E183C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6B8EE55-34E7-4CAB-B76D-7B752A7E183C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3DD92FB-6671-4CC7-9528-70CF51DDF1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3DD92FB-6671-4CC7-9528-70CF51DDF1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3DD92FB-6671-4CC7-9528-70CF51DDF1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3DD92FB-6671-4CC7-9528-70CF51DDF1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{846B5F4B-194A-4D5C-BCF2-7F68F3BA1994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{846B5F4B-194A-4D5C-BCF2-7F68F3BA1994}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{846B5F4B-194A-4D5C-BCF2-7F68F3BA1994}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{846B5F4B-194A-4D5C-BCF2-7F68F3BA1994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{207701D7-DE70-43DC-8240-E520C75D04DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{207701D7-DE70-43DC-8240-E520C75D04DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{207701D7-DE70-43DC-8240-E520C75D04DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{207701D7-DE70-43DC-8240-E520C75D04DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E42A7BAC-8E25-4A13-81B8-B3585B1370E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E42A7BAC-8E25-4A13-81B8-B3585B1370E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E42A7BAC-8E25-4A13-81B8-B3585B1370E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E42A7BAC-8E25-4A13-81B8-B3585B1370E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,57 @@
+﻿@page "/"
+@using CovidTracker.Application.Queries.StateRecords
+@using MediatR
+@using Telerik.DataSource
+
+@inject IMediator Mediator
+
+<PageTitle>Home</PageTitle>
+
+@if (stateCovideData != null)
+{
+    <TelerikGrid @ref="@CovidGrid"
+    Data="@stateCovideData"
+    Pageable="true"
+    Sortable="true"
+    SortMode="@SortMode.Multiple"
+    OnStateInit="@((GridStateEventArgs<StateCovidData> args) => SetInitialGridSort(args))">
+        <GridColumns>
+            <GridColumn Field="@nameof(StateCovidData.DataDate)" Title="Date" DisplayFormat="{0:D}" />
+            <GridColumn Field="@nameof(StateCovidData.State)" Title="State" /> 
+            <GridColumn Field="@nameof(StateCovidData.Total)" Title="Total"/> 
+            <GridColumn Field="@nameof(StateCovidData.Positive)" Title="Positive" />
+            <GridColumn Field="@nameof(StateCovidData.Negative)" Title="Negative" />
+            <GridColumn Field="@nameof(StateCovidData.HospitalizedCurrently)" Title="Hospitalized" />
+            <GridColumn Field="@nameof(StateCovidData.HospitalizedOnVentilator)" Title="Ventilated" />
+            <GridColumn Field="@nameof(StateCovidData.HospitalizedInIcu)" Title="ICU" />
+        </GridColumns>
+    </TelerikGrid>
+}
+
+
+@code {
+    private List<StateCovidData> stateCovideData;
+    private TelerikGrid<StateCovidData>? CovidGrid { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        GetAllCovidStateRecordsRequest request = new GetAllCovidStateRecordsRequest();
+        stateCovideData = await Mediator.Send(request);
+    }
+
+    private async Task SetInitialGridSort(GridStateEventArgs<StateCovidData> args)
+    {
+
+        if(CovidGrid != null){
+            var gridState = CovidGrid.GetState();
+
+            gridState.SortDescriptors.Add(new SortDescriptor()
+                {
+                    Member = nameof(StateCovidData.Positive),
+                    SortDirection = ListSortDirection.Descending
+                });
+
+            await CovidGrid.SetStateAsync(gridState);
+        }
+    }
+}
