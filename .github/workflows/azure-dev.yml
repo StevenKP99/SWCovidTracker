@@ -43,6 +43,9 @@ jobs:
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
 
+      - name: Set up Nuget feeds
+      - run: |
+          nuget sources add -name "telerik.com" -source "https://nuget.telerik.com/v3/index.json" -username "${{ secrets.TELERIKUSER }}" -password "${{ secrets.TELERIKPASSWORD }}"
 
       - name: Provision Infrastructure
         run: azd provision --no-prompt
