@@ -59,7 +59,15 @@ jobs:
         run: |
           nuget sources add -name "nuget.org" -source "https://api.nuget.org/v3/index.json"
           nuget sources add -name "telerik.com" -source "https://nuget.telerik.com/v3/index.json" -username "${{ secrets.TELERIKUSER }}" -password "${{ secrets.TELERIKPASSWORD }}"
-
+    
+      - name: Restore NuGet Packages 
+        run: | 
+          dotnet restore --configfile nuget.config
+          
+      - name: Build with dotnet 
+        run: | 
+          dotnet build --configuration Release
+          
       - name: Provision Infrastructure
         run: azd provision --no-prompt
         env:
