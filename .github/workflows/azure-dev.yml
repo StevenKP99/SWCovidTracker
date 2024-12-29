@@ -26,12 +26,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+     
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v4.2.0
         with:
           dotnet-version: '9.0.x'           
+     
       - name: Install azd
         uses: Azure/setup-azd@v1.0.0
+    
       - name: Install .NET Aspire workload
         run: dotnet workload install aspire
 
@@ -43,9 +46,13 @@ jobs:
             --tenant-id "$Env:AZURE_TENANT_ID"
         shell: pwsh
 
+      - name: Add Ubuntu 22.04 Repositories 
+        run: | 
+          sudo sh -c 'echo "deb http://archive.ubuntu.com/ubuntu jammy main universe" > /etc/apt/sources.list.d/jammy.list' 
+          sudo apt-get update
+          
       - name: Install NuGet CLI 
         run: | 
-          sudo apt-get update 
           sudo apt-get install -y nuget
           
       - name: Set up Nuget feeds
