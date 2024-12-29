@@ -7,6 +7,8 @@
 
 <PageTitle>Home</PageTitle>
 
+<span>View the source code on <a href="https://github.com/StevenKP99/SWCovidTracker" target="_blank">GitHub</a></span>
+
 @if (stateCovideData != null)
 {
     <TelerikGrid @ref="@CovidGrid"
@@ -30,7 +32,7 @@
 
 
 @code {
-    private List<StateCovidData> stateCovideData;
+    private List<StateCovidData>? stateCovideData;
     private TelerikGrid<StateCovidData>? CovidGrid { get; set; }
 
     protected async override Task OnInitializedAsync()
