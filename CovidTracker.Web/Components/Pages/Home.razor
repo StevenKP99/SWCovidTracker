@@ -8,25 +8,27 @@
 <PageTitle>Home</PageTitle>
 
 <span>View the source code on <a href="https://github.com/StevenKP99/SWCovidTracker" target="_blank">GitHub</a></span>
+<br/>
 <span>View the running demo at <a href="https://webfrontend.jollycliff-60b2df19.centralus.azurecontainerapps.io/" target="_blank">Azure Deployment</a></span>
 
 @if (stateCovideData != null)
 {
     <TelerikGrid @ref="@CovidGrid"
-    Data="@stateCovideData"
-    Pageable="true"
-    Sortable="true"
-    SortMode="@SortMode.Multiple"
-    OnStateInit="@((GridStateEventArgs<StateCovidData> args) => SetInitialGridSort(args))">
+                Data="@stateCovideData"
+                Pageable="true"
+                PageSize="100"
+                Sortable="true"
+                FilterMode="@GridFilterMode.FilterMenu"
+                OnStateInit="@((GridStateEventArgs<StateCovidData> args) => SetInitialGridSort())">
         <GridColumns>
-            <GridColumn Field="@nameof(StateCovidData.DataDate)" Title="Date" DisplayFormat="{0:D}" />
-            <GridColumn Field="@nameof(StateCovidData.State)" Title="State" /> 
-            <GridColumn Field="@nameof(StateCovidData.Total)" Title="Total"/> 
-            <GridColumn Field="@nameof(StateCovidData.Positive)" Title="Positive" />
-            <GridColumn Field="@nameof(StateCovidData.Negative)" Title="Negative" />
-            <GridColumn Field="@nameof(StateCovidData.HospitalizedCurrently)" Title="Hospitalized" />
-            <GridColumn Field="@nameof(StateCovidData.HospitalizedOnVentilator)" Title="Ventilated" />
-            <GridColumn Field="@nameof(StateCovidData.HospitalizedInIcu)" Title="ICU" />
+            <GridColumn Field="@nameof(StateCovidData.DataDate)" Title="Date" DisplayFormat="{0:D}" Filterable="true" />
+            <GridColumn Field="@nameof(StateCovidData.State)" Title="State" Filterable="true"/> 
+            <GridColumn Field="@nameof(StateCovidData.Total)" Title="Total" Filterable="false"/>
+            <GridColumn Field="@nameof(StateCovidData.Positive)" Title="Positive" Filterable="false" />
+            <GridColumn Field="@nameof(StateCovidData.Negative)" Title="Negative" Filterable="false" />
+            <GridColumn Field="@nameof(StateCovidData.HospitalizedCurrently)" Title="Hospitalized" Filterable="false" />
+            <GridColumn Field="@nameof(StateCovidData.HospitalizedOnVentilator)" Title="Ventilated" Filterable="false" />
+            <GridColumn Field="@nameof(StateCovidData.HospitalizedInIcu)" Title="ICU" Filterable="false" />
         </GridColumns>
     </TelerikGrid>
 }
@@ -42,7 +44,7 @@
         stateCovideData = await Mediator.Send(request);
     }
 
-    private async Task SetInitialGridSort(GridStateEventArgs<StateCovidData> args)
+    private async Task SetInitialGridSort()
     {
 
         if(CovidGrid != null){

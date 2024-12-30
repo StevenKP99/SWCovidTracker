@@ -3,6 +3,7 @@ using CovidTracker.Domain.Interfaces;
 using CovidTracker.Domain.V1State;
 using CovidTracker.Infrastructure.Converters;
 using Serilog;
+using StackExchange.Redis;
 using System.Text.Json;
 
 namespace CovidTracker.Infrastructure;
@@ -11,7 +12,9 @@ internal class CovidTrackerRepository : ICovidTrackerRepository
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILogger _logger;
+    private readonly IConnectionMultiplexer _stateRecords;
     private string baseUrl = "https://api.covidtracking.com/";
+    private const string stateJsonKey = "statesJson";
 
     JsonSerializerOptions options = new JsonSerializerOptions
     {
@@ -20,9 +23,11 @@ internal class CovidTrackerRepository : ICovidTrackerRepository
         Converters = { new DateConverter() }
     };
 
-    public CovidTrackerRepository(IHttpClientFactory httpClientFactory, ILogger logger) {
+    public CovidTrackerRepository(IHttpClientFactory httpClientFactory, ILogger logger, IConnectionMultiplexer stateRecords) {
         _httpClientFactory = httpClientFactory;
         _logger = logger;
+        _stateRecords = stateRecords;
+
     }
     public async Task<List<Data>> GetCovidDataByState(string state, DateTime? dataDate = null)
     {
@@ -71,32 +76,44 @@ internal class CovidTrackerRepository : ICovidTrackerRepository
 
     public async Task<List<StateCovidRecord>> GetAllStateCovidRecords()
     {
-        string trackerUrl = baseUrl + "v1/states/daily.json";
+        string data = "";
+        var stateDb = _stateRecords.GetDatabase();
+        var stateJson = await stateDb.StringGetAsync(stateJsonKey);
 
-        _logger.Information("GetCovidDataByState: {trackerUrl}", trackerUrl);
-
-        var client = _httpClientFactory.CreateClient();
-        var response = await client.GetAsync(trackerUrl);
-
-        if (response.IsSuccessStatusCode)
+        if (!stateJson.IsNullOrEmpty)
         {
-          //  options.Converters.Add(new DateConverter());
-            var data = response.Content.ReadAsStringAsync().Result;
-            var covidData = JsonSerializer.Deserialize<List<StateCovidRecord>>(data, options);
-
-
-            if (covidData == null)
-            {
-                _logger.Error("GetCovidDataByState: {Data}", data);
-                return new List<StateCovidRecord>();
-            }
-
-            return covidData;
+            data = stateJson!;
+            _logger.Information("GetCovidDataByState loaded from cache");
         }
         else
         {
-            _logger.Error("GetCovidDataByState: {statusCode}", response.StatusCode);
+            string trackerUrl = baseUrl + "v1/states/daily.json";
+
+            _logger.Information("GetCovidDataByState: {trackerUrl}", trackerUrl);
+
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync(trackerUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                data = response.Content.ReadAsStringAsync().Result;
+                stateDb.StringSet(stateJsonKey, data);
+            }
+            else
+            {
+                _logger.Error("GetCovidDataByState: {statusCode}", response.StatusCode);
+                return new List<StateCovidRecord>();
+            }
+        }
+        
+        var covidData = JsonSerializer.Deserialize<List<StateCovidRecord>>(data, options);
+
+        if (covidData == null)
+        {
+            _logger.Error("GetCovidDataByState: {Data}", data);
             return new List<StateCovidRecord>();
         }
+
+        return covidData;
     }
 }

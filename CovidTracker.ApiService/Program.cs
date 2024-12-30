@@ -30,6 +30,8 @@ builder.Services.AddInfrastructureServices(logger);
 builder.Services.AddMediatR(cfg =>
   cfg.RegisterServicesFromAssemblies(mediatRAssemblies.ToArray()));
 
+builder.AddInfratructureExtensions();
+
 builder.Services.AddFastEndpoints();
 
 var app = builder.Build();

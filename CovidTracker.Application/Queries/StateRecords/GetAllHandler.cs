@@ -1,6 +1,5 @@
 ﻿using CovidTracker.Application.Models;
 using CovidTracker.Domain.Interfaces;
-using CovidTracker.Domain.V1State;
 using MediatR;
 using Serilog;
 
@@ -23,6 +22,6 @@ internal class GetAllHandler : IRequestHandler<GetAllCovidStateRecordsRequest, L
 
         var data = await _repository.GetAllStateCovidRecords();
 
-        return data.MapToCovidStateCovidData();
+        return data.MapToCovidStateCovidData().OrderByDescending(x => x.Positive).ToList();
     }
 }

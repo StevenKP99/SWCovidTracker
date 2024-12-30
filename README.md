@@ -8,8 +8,11 @@ The main focus was on trying new technologies I have yet to utilize, with adhere
 
 - **Feature 1**: Aspire
 - **Feature 2**: FastEndpoints
+  - Only utilized in API that is deployed for local development. Blazor uses MediatR calls directly.
 - **Feature 3**: Telerik For Blazor
+  - Issue with the sorting functionality of the grid. Seems related to trial version potentiolly. Left table sorting in place but resolved issue by presorting data returned from MediatR handler
 - **Feature 4**: Deploy to Azure using GitHub actions.
+- **Feature 5**: Redis is being used to load the static data from the covid api.
 
 Deploying a .NET Apire project using Azure Developer CLI and GitHub Actions
 https://learn.microsoft.com/en-us/dotnet/aspire/deployment/azure/aca-deployment-github-actions?tabs=windows&pivots=github-actions
