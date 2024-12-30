@@ -1,6 +1,6 @@
 # CovidTracker
 
-`[Demo](https://webfrontend.jollycliff-60b2df19.centralus.azurecontainerapps.io/)`
+[Covid Records Demo](https://webfrontend.jollycliff-60b2df19.centralus.azurecontainerapps.io/)
 
 ## This is a sample project to test out a few different technologies, display Clean Architecture and Mediator pattern
 
